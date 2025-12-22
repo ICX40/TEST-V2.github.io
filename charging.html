@@ -3,101 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شحن ألعاب - DS STORE</title>
+    <title>DS STORE V2 - Charging</title>
+
+    <link rel="icon" href="Favico.ico" type="image/png">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        /* --- المتغيرات (أحمر للشحن) --- */
-        :root { 
-            --primary-red: #d63031; 
-            --bg-black: #0a0a0a; 
-            --bg-card: #141414; 
-            --text-white: #ffffff; 
-            --header-bg: #1a1a2e; 
-            --header-purple: #8a63e5; 
-            --text-gray: #a0a0b0; 
-        }
+        /* اللون الأحمر الخاص بصفحة الشحن */
+        :root { --page-color: #d63031; --bg-black: #0a0a0a; --bg-card: #141414; --text-white: #ffffff; --header-bg: #1a1a2e; --header-purple: #8a63e5; --text-gray: #a0a0b0; --search-bg: #252539; }
         body { font-family: 'Cairo', sans-serif; margin: 0; background-color: var(--bg-black); color: var(--text-white); }
         
-        /* الهيدر */
-        .custom-header { background-color: var(--header-bg); padding: 10px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary-red); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 24px; font-weight: 700; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .logo-icon { background-color: var(--header-purple); padding: 8px; border-radius: 10px; }
+        /* Header Styles */
+        .custom-header { background-color: var(--header-bg); padding: 10px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--page-color); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .logo { font-size: 24px; font-weight: 700; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .logo:hover { text-shadow: 0 0 10px var(--page-color); }
+        .logo-icon { background-color: var(--page-color); color: #fff; padding: 5px 10px; border-radius: 10px; box-shadow: 0 0 10px var(--page-color); }
+        .header-center { flex-grow: 1; display: flex; justify-content: center; }
         .nav-link { color: var(--text-gray); text-decoration: none; font-weight: 600; margin: 0 15px; transition: 0.3s; padding-bottom: 5px; font-size: 16px; }
-        .nav-link:hover, .nav-link.active { color: var(--primary-red); }
-        .nav-link.active { border-bottom: 3px solid var(--primary-red); padding-bottom: 5px; color: #fff; }
-        
+        .nav-link:hover { color: var(--page-color); text-shadow: 0 0 5px var(--page-color); }
+        .nav-link.active { color: white; border-bottom: 3px solid var(--page-color); }
         .header-left { display: flex; align-items: center; gap: 15px; }
         .search-container { position: relative; }
-        .search-input { background-color: #252539; border: none; padding: 10px 35px 10px 15px; border-radius: 25px; color: white; width: 250px; outline: none; font-family: 'Cairo'; }
+        .search-input { background-color: var(--search-bg); border: 1px solid transparent; padding: 10px 35px 10px 15px; border-radius: 25px; color: white; width: 250px; outline: none; font-family: 'Cairo'; transition: 0.3s; }
+        .search-input:focus { border-color: var(--page-color); box-shadow: 0 0 5px var(--page-color); }
         .search-icon { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-gray); }
-        .action-btn { background-color: var(--header-purple); color: var(--text-white); text-decoration: none; padding: 8px 20px; border-radius: 25px; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; transition: 0.3s; border: none; cursor: pointer; }
-        .cart-count { background-color: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 50%; font-size: 12px; margin-left: 5px; }
+        .action-btn { background-color: var(--page-color); color: #fff; text-decoration: none; padding: 8px 20px; border-radius: 25px; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; transition: 0.3s; border: none; cursor: pointer; box-shadow: 0 0 5px var(--page-color); }
+        .action-btn:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 15px var(--page-color); }
+        .cart-count { background-color: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 50%; font-size: 12px; margin-left: 5px; color: white; }
 
-        /* المنتجات */
-        .container { max-width: 1200px; margin: 40px auto; padding: 20px; }
-        .page-title { text-align: center; color: var(--primary-red); font-size: 2.5rem; margin-bottom: 40px; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
-        .product-card { background-color: var(--bg-card); border: 1px solid #333; border-radius: 15px; overflow: hidden; transition: 0.3s; text-align: center; padding-bottom: 20px; }
-        .product-card:hover { border-color: var(--primary-red); transform: translateY(-10px); }
-        .product-image { width: 100%; height: 200px; object-fit: cover; }
-        
-        /* زر عرض الباقات */
-        .show-packs-btn { 
-            background: transparent; color: var(--primary-red); border: 2px solid var(--primary-red); 
-            padding: 8px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; 
-            transition: 0.3s; font-family: 'Cairo'; width: 80%; 
+        /* HERO BANNER STYLE */
+        .hero-banner {
+            background-color: #000;
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
-        .show-packs-btn:hover { background-color: var(--primary-red); color: white; }
+        .hero-banner::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(214, 48, 49, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 0;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .hero-icon-large { font-size: 3.5rem; color: #fff; }
+        .hero-subtitle { color: #aaa; font-size: 1.1rem; margin-top: 15px; font-weight: 600; }
 
-        /* --- تصميم قائمة الأسعار الطولية --- */
+        /* Products Grid */
+        .container { max-width: 1200px; margin: 40px auto; padding: 20px; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .product-card { background-color: var(--bg-card); border: 1px solid #333; border-radius: 15px; overflow: hidden; transition: 0.3s; text-align: center; padding-bottom: 20px; }
+        .product-card:hover { border-color: var(--page-color); transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .product-image { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #222; }
+        
+        .show-packs-btn { 
+            background: transparent; 
+            color: var(--page-color); 
+            border: 2px solid var(--page-color); 
+            padding: 8px 30px; 
+            border-radius: 25px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: 0.3s; 
+            font-family: 'Cairo'; 
+            width: 80%; 
+            font-size: 15px;
+        }
+        .show-packs-btn:hover { background-color: var(--page-color); color: white; box-shadow: 0 0 15px var(--page-color); }
+
+        /* Pricing Modal Styles */
         .pricing-modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .pricing-content { background-color: #111; border: 1px solid var(--primary-red); border-radius: 15px; width: 90%; max-width: 450px; padding: 20px; position: relative; text-align: center; max-height: 80vh; overflow-y: auto; box-shadow: 0 0 20px rgba(214, 48, 49, 0.2); }
+        .pricing-content { background-color: #111; border: 1px solid var(--page-color); border-radius: 15px; width: 90%; max-width: 450px; padding: 20px; position: relative; text-align: center; max-height: 80vh; overflow-y: auto; box-shadow: 0 0 20px rgba(214, 48, 49, 0.2); }
         .pricing-header { margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .pricing-header h3 { color: white; margin: 0; font-size: 20px; }
         .pricing-header p { color: #aaa; font-size: 12px; margin-top: 5px; }
         .close-pricing { position: absolute; left: 20px; top: 20px; color: #fff; font-size: 24px; cursor: pointer; transition: 0.3s; }
-        .close-pricing:hover { color: var(--primary-red); }
-        
-        .pricing-item { 
-            background: #1a1a1a; border: 1px solid #333; border-radius: 10px; 
-            padding: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; 
-            transition: 0.3s;
-        }
-        .pricing-item:hover { border-color: var(--primary-red); transform: translateX(-5px); }
-        
+        .close-pricing:hover { color: var(--page-color); transform: rotate(90deg); }
+        .pricing-item { background: #1a1a1a; border: 1px solid #333; border-radius: 10px; padding: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
+        .pricing-item:hover { border-color: var(--page-color); transform: translateX(-5px); }
         .item-details { text-align: right; }
         .item-name { color: white; font-weight: bold; font-size: 15px; display: block; }
-        .item-price { color: var(--primary-red); font-size: 14px; font-weight: bold; }
+        .item-price { color: var(--page-color); font-size: 14px; font-weight: bold; text-shadow: 0 0 5px rgba(214, 48, 49, 0.5); }
+        .select-btn { background-color: var(--page-color); color: white; border: none; padding: 8px 25px; border-radius: 5px; font-weight: bold; cursor: pointer; font-family: 'Cairo'; transition: 0.3s; }
+        .select-btn:hover { filter: brightness(1.2); box-shadow: 0 0 10px var(--page-color); }
+
+        /* General Modal Styles (Updated for Horizontal Layout) */
+        .modal { display: none; position: fixed; z-index: 2200; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; }
+        /* عرض المودال أكبر */
+        .modal-content { background-color: #121212; background-image: linear-gradient(to bottom, #1e1e1e, #121212); padding: 0; border-radius: 20px; width: 95%; max-width: 900px; text-align: center; position: relative; overflow: hidden; border: 1px solid var(--page-color); box-shadow: 0 0 25px rgba(0,0,0,0.5), 0 0 10px var(--page-color); color: white; }
+        .modal-header { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); }
+        .modal-header h3 { color: var(--page-color); margin: 0; font-size: 18px; } 
+        .close { color: #aaa; font-size: 24px; font-weight: bold; cursor: pointer; transition: 0.3s; } .close:hover { color: var(--page-color); transform: rotate(90deg); }
         
-        .select-btn { 
-            background-color: var(--primary-red); color: white; border: none; padding: 8px 25px; 
-            border-radius: 5px; font-weight: bold; cursor: pointer; font-family: 'Cairo'; 
-        }
-        .select-btn:hover { background-color: #ff4d4d; }
-
-        /* نافذة الدفع النهائية */
-        .modal { display: none; position: fixed; z-index: 2100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); justify-content: center; align-items: center; }
-        .modal-content { background-color: #150029; background-image: linear-gradient(to bottom, #1e0b36, #150029); padding: 0; border-radius: 20px; width: 90%; max-width: 500px; text-align: center; position: relative; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; }
-        .modal-header { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
-        .product-summary { padding: 20px; background-color: rgba(255,255,255,0.02); margin: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; }
-        .product-summary img { width: 80px; height: 50px; object-fit: cover; border-radius: 8px; }
-        .summary-text { text-align: right; flex-grow: 1; }
-        .price-tag { background-color: #2b0a0a; color: var(--primary-red); padding: 5px 15px; border-radius: 20px; font-weight: 900; font-size: 14px; display: inline-block; margin: 10px 0; border: 1px solid rgba(214, 48, 49, 0.3); }
+        .product-summary { padding: 15px; background-color: rgba(255,255,255,0.03); margin: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(255,255,255,0.05); }
+        .product-summary img { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; border: 1px solid var(--page-color); }
+        .summary-text { text-align: right; flex-grow: 1; } .summary-text h3 { margin: 0; font-size: 16px; color: #fff; } .summary-text p { margin: 5px 0 0; font-size: 12px; color: #aaa; }
+        .price-tag { background-color: rgba(255, 255, 255, 0.05); color: var(--page-color); padding: 5px 15px; border-radius: 20px; font-weight: 900; font-size: 14px; display: inline-block; margin: 10px 0; border: 1px solid var(--page-color); box-shadow: 0 0 5px var(--page-color); }
         .modal-body { padding: 0 30px 30px; }
-        .form-group input, .form-group select { background-color: #231140; border: 1px solid #3d2c5e; color: white; width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; box-sizing: border-box; font-family: 'Cairo'; }
-        .pay-btn { background-color: var(--primary-red); color: white; width: 100%; padding: 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px; font-family: 'Cairo'; }
-        .pay-btn:hover { background-color: #ff4d4d; }
+        
+        /* --- تنسيقات التصميم الأفقي للمودال --- */
+        .checkout-layout { display: flex; gap: 20px; margin-top: 10px; min-height: 320px; text-align: right; }
+        
+        /* القائمة الجانبية (يمين) */
+        .payment-sidebar { flex: 1; display: flex; flex-direction: column; gap: 10px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px; }
+        .payment-option { padding: 15px; background: #1a1a1a; border: 1px solid #333; border-radius: 10px; cursor: pointer; transition: 0.3s; font-weight: bold; display: flex; align-items: center; justify-content: space-between; color: #aaa; }
+        .payment-option:hover { background: #222; border-color: var(--page-color); color: white; }
+        .payment-option.active { background: var(--page-color); color: #fff; border-color: var(--page-color); box-shadow: 0 0 15px rgba(214, 48, 49, 0.4); }
+        .payment-option i { font-size: 1.2em; }
 
-        /* تنسيق معلومات الدفع */
-        .payment-info-box { display: none; margin-top:10px; padding:15px; border:1px solid var(--primary-red); border-radius:8px; background:rgba(214, 48, 49, 0.1); color:white; text-align: center; }
-        .payment-info-label { margin:0; font-size:12px; color:#ccc; }
-        .payment-info-value { margin:5px 0 0; font-size:18px; font-weight:bold; color:var(--primary-red); direction:ltr; }
-        .telda-qr { width: 100px; height: 100px; margin-top: 10px; border-radius: 10px; border: 2px solid white; }
+        /* منطقة التفاصيل (يسار) */
+        .payment-details-area { flex: 2; display: flex; flex-direction: column; }
+        
+        .payment-info-box { display: none; background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 10px; padding: 15px; margin-bottom: 20px; text-align: center; }
+        .payment-info-value { font-size: 22px; font-weight: bold; color: var(--page-color); margin: 10px 0; direction: ltr; letter-spacing: 1px; }
+        .telda-qr { width: 100px; height: 100px; border-radius: 10px; border: 2px solid white; margin-top: 5px; }
 
-        /* Auth Modals (مختصر) */
-        .auth-modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
-        .auth-content { background: #150029; padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; color: white; border: 1px solid rgba(255,255,255,0.1); }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .full-width { grid-column: span 2; }
+        
+        .form-group { margin-bottom: 10px; text-align: right; } .form-group label { display: block; margin-bottom: 5px; font-size: 12px; color: #ccc; }
+        .custom-input, .payment-select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #333; background-color: #1a1a1a; color: white; font-family: 'Cairo'; outline: none; box-sizing: border-box; transition: 0.3s; } 
+        .custom-input:focus, .payment-select:focus { border-color: var(--page-color); box-shadow: 0 0 8px var(--page-color); }
+        
+        .modal-social-links { display: flex; justify-content: center; gap: 20px; margin-top: 10px; }
+        .modal-social-link { font-size: 24px; transition: 0.3s; text-decoration: none; }
+        .modal-social-link:hover { transform: scale(1.2); }
+        .discord-icon { color: #5865F2; } .whatsapp-icon { color: #25D366; }
+
+        .pay-btn { background-color: var(--page-color); color: #fff; width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: auto; font-family: 'Cairo'; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .pay-btn:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 6px 20px var(--page-color); }
+        .modal-footer-note { font-size: 11px; color: #777; margin-top: 15px; }
+        
+        footer { border-top: 2px solid var(--page-color); padding: 30px; text-align: center; background-color: #000; color: #888; margin-top: 50px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px; margin-bottom: 8px; border-radius: 8px; border: 1px solid #333; }
+        .cart-item img { width: 40px; height: 40px; border-radius: 5px; object-fit: cover; }
+        .cart-item-info { flex-grow: 1; text-align: right; padding-right: 10px; }
+        .cart-item-info h4 { margin: 0; font-size: 14px; color: white; }
+        .cart-item-info span { font-size: 12px; color: var(--page-color); }
+        .remove-btn { color: #ff4d4d; cursor: pointer; padding: 5px; font-size: 14px; }
+        .order-card { background: #1a1a1a; padding: 15px; margin-bottom: 10px; border-radius: 8px; border-right: 3px solid var(--page-color); }
+        .order-header { display: flex; justify-content: space-between; color: #ccc; font-size: 12px; margin-bottom: 5px; }
+        .order-details { font-weight: bold; color: white; font-size: 14px; }
+        .add-to-cart-btn { background: transparent; border: 1px solid var(--page-color); color: var(--page-color); width: 100%; padding: 10px; border-radius: 8px; margin-top: 10px; cursor: pointer; font-weight: bold; font-family: 'Cairo'; }
+        .add-to-cart-btn:hover { background: rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
@@ -113,209 +178,113 @@
         </nav></div>
         <div class="header-left">
             <div class="search-container"><i class="fas fa-search search-icon"></i><input type="text" class="search-input" placeholder="ابحث عن الالعاب..."></div>
-            <a href="#" class="action-btn"><span class="cart-count">0</span> السله <i class="fas fa-shopping-cart"></i></a>
+            <a href="#" class="action-btn"><span class="cart-count">0</span>السله <i class="fas fa-shopping-cart"></i></a>
             <a href="#" class="action-btn">طلباتي <i class="fas fa-box-open"></i></a>
-            <a href="#" class="action-btn" id="loginBtn" onclick="openAuthMain()" style="background-color: transparent; border: 1px solid var(--primary-red); color: var(--primary-red);"><i class="fas fa-user"></i> دخول</a>
         </div>
     </header>
 
     <div class="container">
-        <h1 class="page-title">شحن رصيد الألعاب</h1>
+        <div class="hero-banner">
+            <div class="hero-title">
+                 شحن ألعاب فوري <i class="fa-solid fa-bolt hero-icon-large"></i>
+            </div>
+            <div class="hero-subtitle">
+                PUBG - Valorant - League of Legends - FC Mobile بأرخص الأسعار
+            </div>
+        </div>
+
         <div class="products-grid">
-            
-            <div class="product-card">
-                <img src="pubg.jpg" alt="PUBG" class="product-image">
-                <div style="padding:20px;">
-                    <h3>PUBG Mobile</h3>
-                    <button class="show-packs-btn" onclick="openPricingModal('pubg')"><i class="fas fa-list"></i> عرض الباقات</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="lol.jpg" alt="League of Legends" class="product-image">
-                <div style="padding:20px;">
-                    <h3>League of Legends</h3>
-                    <button class="show-packs-btn" onclick="openPricingModal('lol')"><i class="fas fa-list"></i> عرض الباقات</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="valorant.jpg" alt="Valorant" class="product-image">
-                <div style="padding:20px;">
-                    <h3>Valorant</h3>
-                    <button class="show-packs-btn" onclick="openPricingModal('valorant')"><i class="fas fa-list"></i> عرض الباقات</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="fcmobile.jpg" alt="FC Mobile" class="product-image">
-                <div style="padding:20px;">
-                    <h3>FC Mobile</h3>
-                    <button class="show-packs-btn" onclick="openPricingModal('fcmobile')"><i class="fas fa-list"></i> عرض الباقات</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="cod.jpg" alt="Call of Duty" class="product-image">
-                <div style="padding:20px;">
-                    <h3>Call of Duty Mobile</h3>
-                    <button class="show-packs-btn" onclick="openPricingModal('cod')"><i class="fas fa-list"></i> عرض الباقات</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="arena.jpg" alt="Arena Breakout" class="product-image">
-                <div style="padding:20px;">
-                    <h3>Arena Breakout</h3>
-                    <button class="show-packs-btn" onclick="openPricingModal('arena')"><i class="fas fa-list"></i> عرض الباقات</button>
-                </div>
-            </div>
-
+            <div class="product-card"><img src="pubg.jpg" alt="PUBG" class="product-image"><div style="padding:20px;"><h3>PUBG Mobile</h3><button class="show-packs-btn" onclick="openPricingModal('pubg')"><i class="fas fa-list"></i>عرض الاسعار</button></div></div>
+            <div class="product-card"><img src="lol.jpg" alt="League of Legends" class="product-image"><div style="padding:20px;"><h3>League of Legends</h3><button class="show-packs-btn" onclick="openPricingModal('lol')"><i class="fas fa-list"></i>عرض الاسعار</button></div></div>
+            <div class="product-card"><img src="valorant.jpg" alt="Valorant" class="product-image"><div style="padding:20px;"><h3>Valorant</h3><button class="show-packs-btn" onclick="openPricingModal('valorant')"><i class="fas fa-list"></i>عرض الاسعار</button></div></div>
+            <div class="product-card"><img src="fcmobile.jpg" alt="FC Mobile" class="product-image"><div style="padding:20px;"><h3>FC Mobile</h3><button class="show-packs-btn" onclick="openPricingModal('fcmobile')"><i class="fas fa-list"></i>عرض الاسعار</button></div></div>
+            <div class="product-card"><img src="cod.jpg" alt="Call of Duty" class="product-image"><div style="padding:20px;"><h3>Call of Duty Mobile</h3><button class="show-packs-btn" onclick="openPricingModal('cod')"><i class="fas fa-list"></i>عرض الاسعار</button></div></div>
+            <div class="product-card"><img src="arena.jpg" alt="Arena Breakout" class="product-image"><div style="padding:20px;"><h3>Arena Breakout</h3><button class="show-packs-btn" onclick="openPricingModal('arena')"><i class="fas fa-list"></i>عرض الاسعار</button></div></div>
         </div>
     </div>
 
-    <div id="modal-pubg" class="pricing-modal">
-        <div class="pricing-content">
-            <span class="close-pricing" onclick="closePricing('modal-pubg')">&times;</span>
-            <div class="pricing-header"><h3>شحن لعبة: PUBG Mobile</h3></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('PUBG 60 UC', '55 EGP', 'pubg.jpg')">شراء</button><div class="item-details"><span class="item-name">60 UC</span><span class="item-price">55 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('PUBG 300+25 UC', '230 EGP', 'pubg.jpg')">شراء</button><div class="item-details"><span class="item-name">300 + 25 UC</span><span class="item-price">230 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('PUBG 600+60 UC', '470 EGP', 'pubg.jpg')">شراء</button><div class="item-details"><span class="item-name">600 + 60 UC</span><span class="item-price">470 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('PUBG 1550+300 UC', '1150 EGP', 'pubg.jpg')">شراء</button><div class="item-details"><span class="item-name">1550 + 300 UC</span><span class="item-price">1150 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('PUBG 3000+850 UC', '2300 EGP', 'pubg.jpg')">شراء</button><div class="item-details"><span class="item-name">3000 + 850 UC</span><span class="item-price">2300 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('PUBG 6000+2100 UC', '4500 EGP', 'pubg.jpg')">شراء</button><div class="item-details"><span class="item-name">6000 + 2100 UC</span><span class="item-price">4500 EGP</span></div></div>
-        </div>
-    </div>
-
-    <div id="modal-lol" class="pricing-modal">
-        <div class="pricing-content">
-            <span class="close-pricing" onclick="closePricing('modal-lol')">&times;</span>
-            <div class="pricing-header"><h3>شحن لعبة: League of Legends</h3></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('LOL 575 RP', '250 EGP', 'lol.jpg')">شراء</button><div class="item-details"><span class="item-name">575 RP</span><span class="item-price">250 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('LOL 1380 RP', '570 EGP', 'lol.jpg')">شراء</button><div class="item-details"><span class="item-name">1380 RP</span><span class="item-price">570 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('LOL 2800 RP', '1100 EGP', 'lol.jpg')">شراء</button><div class="item-details"><span class="item-name">2800 RP</span><span class="item-price">1100 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('LOL 4500 RP', '1750 EGP', 'lol.jpg')">شراء</button><div class="item-details"><span class="item-name">4500 RP</span><span class="item-price">1750 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('LOL 6500 RP', '2500 EGP', 'lol.jpg')">شراء</button><div class="item-details"><span class="item-name">6500 RP</span><span class="item-price">2500 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('LOL 13500 RP', '4950 EGP', 'lol.jpg')">شراء</button><div class="item-details"><span class="item-name">13500 RP</span><span class="item-price">4950 EGP</span></div></div>
-        </div>
-    </div>
-
-    <div id="modal-valorant" class="pricing-modal">
-        <div class="pricing-content">
-            <span class="close-pricing" onclick="closePricing('modal-valorant')">&times;</span>
-            <div class="pricing-header"><h3>شحن لعبة: Valorant</h3></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('Valorant 475 VP', '250 EGP', 'valorant.jpg')">شراء</button><div class="item-details"><span class="item-name">475 VP</span><span class="item-price">250 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('Valorant 1000 VP', '490 EGP', 'valorant.jpg')">شراء</button><div class="item-details"><span class="item-name">1000 VP</span><span class="item-price">490 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('Valorant 2050 VP', '980 EGP', 'valorant.jpg')">شراء</button><div class="item-details"><span class="item-name">2050 VP</span><span class="item-price">980 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('Valorant 3650 VP', '1750 EGP', 'valorant.jpg')">شراء</button><div class="item-details"><span class="item-name">3650 VP</span><span class="item-price">1750 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('Valorant 5350 VP', '2450 EGP', 'valorant.jpg')">شراء</button><div class="item-details"><span class="item-name">5350 VP</span><span class="item-price">2450 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('Valorant 11000 VP', '4900 EGP', 'valorant.jpg')">شراء</button><div class="item-details"><span class="item-name">11000 VP</span><span class="item-price">4900 EGP</span></div></div>
-        </div>
-    </div>
-
-    <div id="modal-fcmobile" class="pricing-modal">
-        <div class="pricing-content">
-            <span class="close-pricing" onclick="closePricing('modal-fcmobile')">&times;</span>
-            <div class="pricing-header"><h3>شحن لعبة: FC Mobile</h3><p>أسعار الـ Silver هي نفس السعر</p></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 40 Points', '30 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">40 FC</span><span class="item-price">30 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 100 Points', '60 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">100 FC</span><span class="item-price">60 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 520 Points', '270 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">520 FC</span><span class="item-price">270 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 1070 Points', '530 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">1070 FC</span><span class="item-price">530 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 2200 Points', '1100 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">2200 FC</span><span class="item-price">1100 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 5750 Points', '2600 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">5750 FC</span><span class="item-price">2600 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 12000 Points', '5300 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">12000 FC</span><span class="item-price">5300 EGP</span></div></div>
-        </div>
-    </div>
-
-    <div id="modal-cod" class="pricing-modal">
-        <div class="pricing-content">
-            <span class="close-pricing" onclick="closePricing('modal-cod')">&times;</span>
-            <div class="pricing-header"><h3>شحن لعبة: COD Mobile</h3></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('COD 160 CP', '60 EGP', 'cod.jpg')">شراء</button><div class="item-details"><span class="item-name">160 CP</span><span class="item-price">60 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('COD 460 CP', '250 EGP', 'cod.jpg')">شراء</button><div class="item-details"><span class="item-name">460 CP</span><span class="item-price">250 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('COD 960 CP', '500 EGP', 'cod.jpg')">شراء</button><div class="item-details"><span class="item-name">960 CP</span><span class="item-price">500 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('COD 2600 CP', '1250 EGP', 'cod.jpg')">شراء</button><div class="item-details"><span class="item-name">2600 CP</span><span class="item-price">1250 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('COD 5400 CP', '2500 EGP', 'cod.jpg')">شراء</button><div class="item-details"><span class="item-name">5400 CP</span><span class="item-price">2500 EGP</span></div></div>
-        </div>
-    </div>
-
-    <div id="modal-arena" class="pricing-modal">
-        <div class="pricing-content">
-            <span class="close-pricing" onclick="closePricing('modal-arena')">&times;</span>
-            <div class="pricing-header"><h3>شحن لعبة: Arena Breakout</h3></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('Arena 60 Diamond', '60 EGP', 'arena.jpg')">شراء</button><div class="item-details"><span class="item-name">60 Diamond</span><span class="item-price">60 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('Arena 310 Diamond', '300 EGP', 'arena.jpg')">شراء</button><div class="item-details"><span class="item-name">310 Diamond</span><span class="item-price">300 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('Arena 630 Diamond', '590 EGP', 'arena.jpg')">شراء</button><div class="item-details"><span class="item-name">630 Diamond</span><span class="item-price">590 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('Arena 1580 Diamond', '1500 EGP', 'arena.jpg')">شراء</button><div class="item-details"><span class="item-name">1580 Diamond</span><span class="item-price">1500 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('Arena 3200 Diamond', '3000 EGP', 'arena.jpg')">شراء</button><div class="item-details"><span class="item-name">3200 Diamond</span><span class="item-price">3000 EGP</span></div></div>
-            <div class="pricing-item"><button class="select-btn" onclick="goToPayment('Arena 6500 Diamond', '5800 EGP', 'arena.jpg')">شراء</button><div class="item-details"><span class="item-name">6500 Diamond</span><span class="item-price">5800 EGP</span></div></div>
-        </div>
-    </div>
+    <div id="modal-pubg" class="pricing-modal"><div class="pricing-content"><span class="close-pricing" onclick="closePricing('modal-pubg')">&times;</span><div class="pricing-header"><h3>شحن لعبة: PUBG Mobile</h3></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('PUBG 60 UC', '55 EGP', 'pubg.jpg')">شراء</button><div class="item-details"><span class="item-name">60 UC</span><span class="item-price">55 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('PUBG 300+25 UC', '230 EGP', 'pubg.jpg')">شراء</button><div class="item-details"><span class="item-name">300 + 25 UC</span><span class="item-price">230 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('PUBG 600+60 UC', '470 EGP', 'pubg.jpg')">شراء</button><div class="item-details"><span class="item-name">600 + 60 UC</span><span class="item-price">470 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('PUBG 1550+300 UC', '1150 EGP', 'pubg.jpg')">شراء</button><div class="item-details"><span class="item-name">1550 + 300 UC</span><span class="item-price">1150 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('PUBG 3000+850 UC', '2300 EGP', 'pubg.jpg')">شراء</button><div class="item-details"><span class="item-name">3000 + 850 UC</span><span class="item-price">2300 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('PUBG 6000+2100 UC', '4500 EGP', 'pubg.jpg')">شراء</button><div class="item-details"><span class="item-name">6000 + 2100 UC</span><span class="item-price">4500 EGP</span></div></div></div></div>
+    <div id="modal-lol" class="pricing-modal"><div class="pricing-content"><span class="close-pricing" onclick="closePricing('modal-lol')">&times;</span><div class="pricing-header"><h3>شحن لعبة: League of Legends</h3></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('LOL 575 RP', '250 EGP', 'lol.jpg')">شراء</button><div class="item-details"><span class="item-name">575 RP</span><span class="item-price">250 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('LOL 1380 RP', '570 EGP', 'lol.jpg')">شراء</button><div class="item-details"><span class="item-name">1380 RP</span><span class="item-price">570 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('LOL 2800 RP', '1100 EGP', 'lol.jpg')">شراء</button><div class="item-details"><span class="item-name">2800 RP</span><span class="item-price">1100 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('LOL 4500 RP', '1750 EGP', 'lol.jpg')">شراء</button><div class="item-details"><span class="item-name">4500 RP</span><span class="item-price">1750 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('LOL 6500 RP', '2500 EGP', 'lol.jpg')">شراء</button><div class="item-details"><span class="item-name">6500 RP</span><span class="item-price">2500 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('LOL 13500 RP', '4950 EGP', 'lol.jpg')">شراء</button><div class="item-details"><span class="item-name">13500 RP</span><span class="item-price">4950 EGP</span></div></div></div></div>
+    <div id="modal-valorant" class="pricing-modal"><div class="pricing-content"><span class="close-pricing" onclick="closePricing('modal-valorant')">&times;</span><div class="pricing-header"><h3>شحن لعبة: Valorant</h3></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('Valorant 475 VP', '250 EGP', 'valorant.jpg')">شراء</button><div class="item-details"><span class="item-name">475 VP</span><span class="item-price">250 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('Valorant 1000 VP', '490 EGP', 'valorant.jpg')">شراء</button><div class="item-details"><span class="item-name">1000 VP</span><span class="item-price">490 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('Valorant 2050 VP', '980 EGP', 'valorant.jpg')">شراء</button><div class="item-details"><span class="item-name">2050 VP</span><span class="item-price">980 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('Valorant 3650 VP', '1750 EGP', 'valorant.jpg')">شراء</button><div class="item-details"><span class="item-name">3650 VP</span><span class="item-price">1750 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('Valorant 5350 VP', '2450 EGP', 'valorant.jpg')">شراء</button><div class="item-details"><span class="item-name">5350 VP</span><span class="item-price">2450 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('Valorant 11000 VP', '4900 EGP', 'valorant.jpg')">شراء</button><div class="item-details"><span class="item-name">11000 VP</span><span class="item-price">4900 EGP</span></div></div></div></div>
+    <div id="modal-fcmobile" class="pricing-modal"><div class="pricing-content"><span class="close-pricing" onclick="closePricing('modal-fcmobile')">&times;</span><div class="pricing-header"><h3>شحن لعبة: FC Mobile</h3><p>أسعار الـ Silver هي نفس السعر</p></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 40 Points', '30 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">40 FC</span><span class="item-price">30 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 100 Points', '60 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">100 FC</span><span class="item-price">60 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 520 Points', '270 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">520 FC</span><span class="item-price">270 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 1070 Points', '530 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">1070 FC</span><span class="item-price">530 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 2200 Points', '1100 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">2200 FC</span><span class="item-price">1100 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 5750 Points', '2600 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">5750 FC</span><span class="item-price">2600 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('FC 12000 Points', '5300 EGP', 'fcmobile.jpg')">شراء</button><div class="item-details"><span class="item-name">12000 FC</span><span class="item-price">5300 EGP</span></div></div></div></div>
+    <div id="modal-cod" class="pricing-modal"><div class="pricing-content"><span class="close-pricing" onclick="closePricing('modal-cod')">&times;</span><div class="pricing-header"><h3>شحن لعبة: COD Mobile</h3></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('COD 160 CP', '60 EGP', 'cod.jpg')">شراء</button><div class="item-details"><span class="item-name">160 CP</span><span class="item-price">60 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('COD 460 CP', '250 EGP', 'cod.jpg')">شراء</button><div class="item-details"><span class="item-name">460 CP</span><span class="item-price">250 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('COD 960 CP', '500 EGP', 'cod.jpg')">شراء</button><div class="item-details"><span class="item-name">960 CP</span><span class="item-price">500 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('COD 2600 CP', '1250 EGP', 'cod.jpg')">شراء</button><div class="item-details"><span class="item-name">2600 CP</span><span class="item-price">1250 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('COD 5400 CP', '2500 EGP', 'cod.jpg')">شراء</button><div class="item-details"><span class="item-name">5400 CP</span><span class="item-price">2500 EGP</span></div></div></div></div>
+    <div id="modal-arena" class="pricing-modal"><div class="pricing-content"><span class="close-pricing" onclick="closePricing('modal-arena')">&times;</span><div class="pricing-header"><h3>شحن لعبة: Arena Breakout</h3></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('Arena 60 Diamond', '60 EGP', 'arena.jpg')">شراء</button><div class="item-details"><span class="item-name">60 Diamond</span><span class="item-price">60 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('Arena 310 Diamond', '300 EGP', 'arena.jpg')">شراء</button><div class="item-details"><span class="item-name">310 Diamond</span><span class="item-price">300 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('Arena 630 Diamond', '590 EGP', 'arena.jpg')">شراء</button><div class="item-details"><span class="item-name">630 Diamond</span><span class="item-price">590 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('Arena 1580 Diamond', '1500 EGP', 'arena.jpg')">شراء</button><div class="item-details"><span class="item-name">1580 Diamond</span><span class="item-price">1500 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('Arena 3200 Diamond', '3000 EGP', 'arena.jpg')">شراء</button><div class="item-details"><span class="item-name">3200 Diamond</span><span class="item-price">3000 EGP</span></div></div><div class="pricing-item"><button class="select-btn" onclick="goToPayment('Arena 6500 Diamond', '5800 EGP', 'arena.jpg')">شراء</button><div class="item-details"><span class="item-name">6500 Diamond</span><span class="item-price">5800 EGP</span></div></div></div></div>
 
     <div id="buyModal" class="modal">
         <div class="modal-content">
             <div class="modal-header"><span class="close" onclick="closePaymentModal()">&times;</span><h3 style="margin:0; font-size:18px;">إتمام الطلب</h3></div>
-            <div class="product-summary">
-                <img id="modal-img" src="" alt="Product">
-                <div class="summary-text"><h3 id="modal-title">...</h3><p>المنصة: <i class="fas fa-check-circle"></i> Digital Code</p><div class="price-tag" id="modal-price">...</div></div>
-            </div>
+            <div class="product-summary"><img id="modal-img" src="" alt="Product"><div class="summary-text"><h3 id="modal-title">...</h3><p>المنصة: <i class="fas fa-check-circle"></i> Digital Code</p><div class="price-tag" id="modal-price">...</div></div></div>
             <div class="modal-body">
-                <form id="purchaseForm" action="https://formspree.io/f/mvzprejr" method="POST">
+                <form id="purchaseForm">
                     <input type="hidden" name="Product_Name" id="hidden-product"><input type="hidden" name="Product_Price" id="hidden-price">
+                    <input type="hidden" name="Payment_Method" id="selectedPaymentMethod" value="Vodafone Cash">
                     
-                    <div class="form-group">
-                        <label>طريقة الدفع:</label>
-                        <select name="Payment_Method" id="paymentSelect" class="payment-select" onchange="updatePaymentInfo()">
-                            <option value="Vodafone Cash">Vodafone - EWallet</option>
-                            <option value="InstaPay">InstaPay</option>
-                            <option value="Telda">Telda</option>
-                        </select>
-                        
-                        <div id="vodafoneInfo" class="payment-info-box" style="display:block;">
-                            <p class="payment-info-label">يرجى تحويل المبلغ لرقم المحفظة:</p>
-                            <p class="payment-info-value">+20 109 449 7558</p>
+                    <div class="checkout-layout">
+                        <div class="payment-sidebar">
+                            <label style="color:#fff; font-weight:bold; margin-bottom:10px; display:block;">اختر طريقة الدفع:</label>
+                            <div class="payment-option active" onclick="selectPayment(this, 'Vodafone Cash')">
+                                <span>فودافون كاش</span> <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="payment-option" onclick="selectPayment(this, 'InstaPay')">
+                                <span>InstaPay</span> <i class="fas fa-university"></i>
+                            </div>
+                            <div class="payment-option" onclick="selectPayment(this, 'Telda')">
+                                <span>Telda</span> <i class="fas fa-credit-card"></i>
+                            </div>
                         </div>
 
-                        <div id="instapayInfo" class="payment-info-box" style="display:none;">
-                            <p class="payment-info-label">عنوان الدفع (IPA):</p>
-                            <p class="payment-info-value">ekwmm@instapay</p>
-                        </div>
+                        <div class="payment-details-area">
+                            <div id="vodafoneInfo" class="payment-info-box" style="display:block;">
+                                <p style="color:#aaa; font-size:20px; margin:0;">يرجى تحويل المبلغ لرقم المحفظة:</p>
+                                <div class="payment-info-value">01094497558</div>
+                                <p style="color:#ffffff; font-size:20px; margin:0;">يرجى التواصل مع احد المسؤلين قبل تأكيد عمليه التحويل</p>
+                            </div>
 
-                        <div id="teldaInfo" class="payment-info-box" style="display:none;">
-                            <p class="payment-info-label">اسم المستخدم (Username):</p>
-                            <p class="payment-info-value">@eyadkadry</p>
-                            <img src="telda-qr.jpeg" alt="Telda QR" class="telda-qr">
-                        </div>
+                            <div id="instapayInfo" class="payment-info-box">
+                                <p style="color:#aaa; font-size:20px; margin:0;">عنوان الدفع (IPA):</p>
+                                <div class="payment-info-value" style="text-transform:lowercase;">ekwmm@instapay</div>
+                                <p style="color:#ffffff; font-size:20px; margin:0;">يرجى التواصل مع احد المسؤلين قبل تأكيد عمليه التحويل</p>
+                            </div>
 
-                        <div>
-                            <p class="payment-info-label">يرجي أرسال Screnn Shot لعمليه الدفع</p>
+                            <div id="teldaInfo" class="payment-info-box">
+                                <p style="color:#aaa; font-size:20px; margin:0;">(Telda):</p>
+                                <div class="payment-info-value" style="font-size:20px;">@eyadkadry</div>
+                                <p style="color:#ffffff; font-size:20px; margin:0;">يرجى التواصل مع احد المسؤلين قبل تأكيد عمليه التحويل</p>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label>مسؤول المبيعات:</label>
+                                    <select id="agentSelect" class="payment-select">
+                                        <option value="201156877865">Eyad Kadry +201156877865</option>
+                                        <option value="201097484520">Ma7mod Raslan +201097484520</option>
+                                    </select>
+                                </div>
+                                <div class="form-group"><label>الإيميل:</label><input type="email" name="Email" class="custom-input" required placeholder="example@mail.com"></div>
+                                <div class="form-group"><label>رقمك / ID اللعبة:</label><input type="text" name="Player_ID" class="custom-input" required placeholder="للتواصل معك"></div>
+                            </div>
+
+                            <div class="modal-social-links">
+                                <a href="https://discord.com/users/958426747144122429" target="_blank" class="modal-social-link discord-icon"><i class="fa-brands fa-discord"></i></a>
+                                <a href="https://wa.me/201156877865" target="_blank" class="modal-social-link whatsapp-icon"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-group"><input type="email" name="Email" class="custom-input" placeholder="أدخل إيميلك والملاحظات" required></div>
-                    <div class="form-group"><input type="text" name="Player_ID" class="custom-input" placeholder="رقم الموبايل / ID اللعبة" required></div>
-                    <button type="submit" class="pay-btn">تأكيد الشحن</button>
-                    <p id="status" class="status-msg" style="margin-top:10px; font-size:13px;"></p>
+                    <button type="submit" class="pay-btn">تأكيد الشحن (WhatsApp)</button>
+                    <p id="status" class="status-msg" style="margin-top:10px; font-size:13px; color:#25D366; font-weight:bold;"></p>
                     <p class="modal-footer-note">تسليم فوري وآمن 100% | Powered by DS STORE</p>
                 </form>
             </div>
         </div>
     </div>
-
-    <div id="authMainModal" class="auth-modal"><div class="auth-content"><span style="float:left; cursor:pointer;" onclick="document.getElementById('authMainModal').style.display='none'">x</span><h2>تسجيل الدخول</h2><p>الرجاء نسخ كود الفايربيس الكامل هنا إذا لم يكن موجوداً</p></div></div>
+    <div id="cartModal" class="modal"><div class="modal-content"><div class="modal-header"><span class="close" onclick="toggleCart(false)">&times;</span><h3><i class="fas fa-shopping-cart"></i> سلة المشتريات</h3></div><div class="modal-body"><div id="cartItemsWrapper" style="max-height: 300px; overflow-y: auto; margin-bottom: 15px;"></div><div style="border-top: 1px solid #333; padding-top: 15px;"><div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:bold;"><span>الإجمالي:</span><span id="cartTotal" style="color: var(--page-color);">0 EGP</span></div><button onclick="checkoutCart()" class="pay-btn" style="background-color: #25D366; color: white;"><i class="fab fa-whatsapp"></i> شراء كل السلة</button><button onclick="clearCart()" style="background:transparent; border:none; color:#ff4d4d; margin-top:10px; cursor:pointer;">تفريغ السلة</button></div></div></div></div>
+    <div id="ordersModal" class="modal"><div class="modal-content"><div class="modal-header"><span class="close" onclick="toggleOrders(false)">&times;</span><h3><i class="fas fa-box-open"></i> سجل طلباتك</h3></div><div class="modal-body"><div id="ordersWrapper" style="max-height: 400px; overflow-y: auto; text-align: right;"></div></div></div></div>
 
     <script>
-        // فتح قائمة الأسعار
-        function openPricingModal(gameId) {
-            document.getElementById('modal-' + gameId).style.display = 'flex';
-        }
-
-        // إغلاق قائمة الأسعار
-        function closePricing(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        // الانتقال للدفع (إغلاق القائمة وفتح الدفع)
+        function openPricingModal(gameId) { document.getElementById('modal-' + gameId).style.display = 'flex'; }
+        function closePricing(modalId) { document.getElementById(modalId).style.display = 'none'; }
+        
         function goToPayment(title, price, imgSrc) {
             document.querySelectorAll('.pricing-modal').forEach(m => m.style.display = 'none');
             document.getElementById('buyModal').style.display = 'flex';
@@ -326,90 +295,88 @@
             document.getElementById('modal-img').src = imgSrc || 'https://via.placeholder.com/80';
             document.getElementById('status').innerText = "";
             
-            // إعادة ضبط القائمة لتظهر الخيار الأول (فودافون) وبياناته
-            document.getElementById('paymentSelect').value = "Vodafone Cash";
-            updatePaymentInfo();
+            // Reset to default
+            selectPayment(document.querySelector('.payment-option'), 'Vodafone Cash');
         }
-
-        function closePaymentModal() {
-            document.getElementById('buyModal').style.display = 'none';
-        }
-
-        // تحديث معلومات الدفع بناءً على الاختيار
-        function updatePaymentInfo() {
-            var select = document.getElementById('paymentSelect');
-            var selected = select.value;
+        function closePaymentModal() { document.getElementById('buyModal').style.display = 'none'; }
+        
+        // --- دالة اختيار طريقة الدفع الجديدة ---
+        function selectPayment(element, method) {
+            document.getElementById('selectedPaymentMethod').value = method;
             
-            // إخفاء الكل
+            document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('active'));
+            if(element) element.classList.add('active');
+            
             document.getElementById('vodafoneInfo').style.display = 'none';
             document.getElementById('instapayInfo').style.display = 'none';
             document.getElementById('teldaInfo').style.display = 'none';
             
-            // إظهار المطلوب
-            if (selected === 'Vodafone Cash') {
-                document.getElementById('vodafoneInfo').style.display = 'block';
-            } else if (selected === 'InstaPay') {
-                document.getElementById('instapayInfo').style.display = 'block';
-            } else if (selected === 'Telda') {
-                document.getElementById('teldaInfo').style.display = 'block';
-            }
+            if(method === 'Vodafone Cash') document.getElementById('vodafoneInfo').style.display = 'block';
+            else if(method === 'InstaPay') document.getElementById('instapayInfo').style.display = 'block';
+            else if(method === 'Telda') document.getElementById('teldaInfo').style.display = 'block';
         }
 
-        // إغلاق عند الضغط خارج المودال
-        window.onclick = function(e) {
-            if (e.target.classList.contains('pricing-modal')) e.target.style.display = 'none';
-            if (e.target == document.getElementById('buyModal')) closePaymentModal();
-            // Auth modal closing is handled in the module script below
-        }
+        window.onclick = function(e) { if (e.target.classList.contains('pricing-modal')) e.target.style.display = 'none'; if (e.target == document.getElementById('buyModal')) closePaymentModal(); if(e.target==document.getElementById('cartModal'))toggleCart(false); if(e.target==document.getElementById('ordersModal'))toggleOrders(false); }
 
-        // Form Submit
-        var form = document.getElementById("purchaseForm");
-        form.addEventListener("submit", async function(e){
-            e.preventDefault(); 
-            var s = document.getElementById("status");
-            s.innerText = "جاري المعالجة..."; s.style.color = "var(--primary-red)";
-            fetch(e.target.action, { method: form.method, body: new FormData(e.target), headers: {'Accept': 'application/json'} })
-            .then(r => {
-                if(r.ok) { s.innerText = "✅ تم بنجاح!"; s.style.color="#00b894"; form.reset(); setTimeout(closePaymentModal, 2000); }
-                else { s.innerText = "خطأ!"; s.style.color="red"; }
-            });
-        });
-    </script>
+        const searchInput = document.querySelector('.search-input');
+        if(searchInput) { searchInput.addEventListener('input', function(e) { const term = e.target.value.toLowerCase(); const products = document.querySelectorAll('.product-card'); products.forEach(card => { const title = card.querySelector('h3').textContent.toLowerCase(); card.style.display = title.includes(term) ? "block" : "none"; }); }); }
+        let cart = JSON.parse(localStorage.getItem('ds_cart')) || [];
+        function updateCartUI() { const countBadges = document.querySelectorAll('.cart-count'); countBadges.forEach(badge => badge.textContent = cart.length); localStorage.setItem('ds_cart', JSON.stringify(cart)); const wrapper = document.getElementById('cartItemsWrapper'); const totalEl = document.getElementById('cartTotal'); if(cart.length === 0) { wrapper.innerHTML = '<p style="color:#777; margin-top:20px;">السلة فارغة</p>'; totalEl.textContent = '0 EGP'; return; } let html = ''; let total = 0; cart.forEach((item, index) => { let priceNum = parseFloat(item.price.replace(/[^0-9.]/g, '')); total += priceNum; html += `<div class="cart-item"><div class="remove-btn" onclick="removeFromCart(${index})"><i class="fas fa-trash"></i></div><div class="cart-item-info"><h4>${item.name}</h4><span>${item.price}</span></div><img src="${item.img}" alt="img"></div>`; }); wrapper.innerHTML = html; totalEl.textContent = total + ' EGP'; }
+        function addToCart(name, price, img) { cart.push({ name: name, price: price, img: img }); updateCartUI(); alert('تمت الإضافة للسلة بنجاح ✅'); closePaymentModal(); }
+        function removeFromCart(index) { cart.splice(index, 1); updateCartUI(); }
+        function clearCart() { if(confirm('هل أنت متأكد من تفريغ السلة؟')) { cart = []; updateCartUI(); } }
+        function toggleCart(show) { document.getElementById('cartModal').style.display = show ? 'flex' : 'none'; if(show) updateCartUI(); }
+        function checkoutCart() { if(cart.length === 0) return alert('السلة فارغة!'); let msg = "*طلب سلة مجمع (DS STORE)* 🛒\n------------------\n"; let total = 0; cart.forEach(item => { msg += `▫️ ${item.name} (${item.price})\n`; total += parseFloat(item.price.replace(/[^0-9.]/g, '')); }); msg += `------------------\n💰 *الإجمالي:* ${total} EGP\n\nيرجى مراجعة المنتجات.`; var selectedAgent = document.getElementById("agentSelect").value; window.location.href = "https://wa.me/" + selectedAgent + "?text=" + encodeURIComponent(msg); }
+        let orders = JSON.parse(localStorage.getItem('ds_orders')) || [];
+        function saveOrderLocal(product, price, date) { orders.unshift({ product, price, date }); localStorage.setItem('ds_orders', JSON.stringify(orders)); }
+        function toggleOrders(show) { const modal = document.getElementById('ordersModal'); modal.style.display = show ? 'flex' : 'none'; if(show) { const wrapper = document.getElementById('ordersWrapper'); if(orders.length === 0) { wrapper.innerHTML = '<p style="color:#777; text-align:center;">لا يوجد طلبات سابقة</p>'; return; } let html = ''; orders.forEach(order => { html += `<div class="order-card"><div class="order-header"><span>${order.date}</span><span style="color:#25D366"><i class="fas fa-check"></i> تم الإرسال</span></div><div class="order-details">${order.product} - ${order.price}</div></div>`; }); wrapper.innerHTML = html; } }
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-        
-        // ... (نفس إعدادات Firebase وكود الدخول الذي وضعته في main.html) ...
-        // تأكد من وضع كود الفايربيس كاملاً هنا ليعمل زر الدخول في هذه الصفحة أيضاً
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyD7O7bBdhWWsXDfG7jblUTvBDwbOjN_0R0",
-            authDomain: "ds-store-4c11a.firebaseapp.com",
-            projectId: "ds-store-4c11a",
-            storageBucket: "ds-store-4c11a.firebasestorage.app",
-            messagingSenderId: "346002347794",
-            appId: "1:346002347794:web:66350c294d75d0acc6c5cb"
-        };
+        document.addEventListener("DOMContentLoaded", () => {
+            updateCartUI();
+            const actionBtns = document.querySelectorAll('.action-btn');
+            actionBtns.forEach(btn => { if(btn.innerHTML.includes('السله') || btn.innerHTML.includes('shopping-cart')) btn.onclick = (e) => { e.preventDefault(); toggleCart(true); }; if(btn.innerHTML.includes('طلباتي') || btn.innerHTML.includes('box-open')) btn.onclick = (e) => { e.preventDefault(); toggleOrders(true); }; });
+            const buyModalForm = document.getElementById('purchaseForm');
+            if(buyModalForm) {
+                const addToCartBtn = document.createElement('button'); addToCartBtn.type = 'button'; addToCartBtn.className = 'add-to-cart-btn'; addToCartBtn.innerHTML = '<i class="fas fa-cart-plus"></i> أضف إلى السلة';
+                addToCartBtn.onclick = function() { const title = document.getElementById('hidden-product').value; const price = document.getElementById('hidden-price').value; const img = document.getElementById('modal-img').src; addToCart(title, price, img); };
+                const submitBtn = buyModalForm.querySelector('.pay-btn'); buyModalForm.insertBefore(addToCartBtn, submitBtn);
+                
+                buyModalForm.addEventListener('submit', function(e) {
+                    e.preventDefault(); 
+                    
+                    const title = document.getElementById('hidden-product').value; 
+                    const price = document.getElementById('hidden-price').value; 
+                    const payment = document.getElementById('selectedPaymentMethod').value;
+                    const email = buyModalForm.querySelector('input[name="Email"]').value; 
+                    const playerId = buyModalForm.querySelector('input[name="Player_ID"]').value;
+                    const agentText = document.getElementById("agentSelect").options[document.getElementById("agentSelect").selectedIndex].text;
+                    const date = new Date().toLocaleDateString('ar-EG'); 
+                    
+                    var s = document.getElementById("status"); 
+                    s.innerText = "جاري إرسال الطلب (إيميل + واتساب)..."; 
+                    s.style.color = "#25D366";
+                    
+                    const formData = new FormData();
+                    formData.append("email", email);
+                    formData.append("message", `New Game Charge Order:\nGame: ${title}\nPrice: ${price}\nPayment: ${payment}\nPlayer Info: ${playerId}\nAgent: ${agentText}`);
+                    
+                    fetch("https://formspree.io/f/xkowqegr", {
+                        method: "POST",
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    }).then(response => console.log("Email sent")).catch(error => console.error("Email error:", error));
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        
-        window.openAuthMain = function() { /* ... منطق فتح المودال ... */ alert("لتفعيل الدخول، انسخ كود الـ script type=module كاملاً من ملف main.html وضعه هنا."); }; 
-        
-        // ملاحظة: ليعمل زر الدخول، عليك نسخ نفس الـ script type="module" الموجود في main.html بالكامل إلى هنا.
-        // قمت باختصاره هنا لتوفير المساحة، لكن يجب أن يكون متطابقاً في كل الصفحات.
-        
-        onAuthStateChanged(auth, (user) => {
-            const btn = document.getElementById("loginBtn");
-            if (user) {
-                btn.innerHTML = `<i class="fas fa-user-check"></i> ${user.email.split("@")[0]}`;
-                btn.style.backgroundColor = "var(--primary-red)";
-                btn.style.color = "#000";
-                btn.onclick = () => { if (confirm("خروج؟")) signOut(auth); };
+                    saveOrderLocal(title, price, date);
+                    
+                    var message = "*طلب شحن جديد (DS STORE)* 🛒\n-----------------------------\n🛍️ *الباقة:* " + title + "\n💰 *السعر:* " + price + "\n💳 *الدفع:* " + payment + "\n-----------------------------\n👤 *بيانات العميل:*\n📧 *معلومات:* " + email + "\n🆔 *ID / رقم:* " + playerId + "\n-----------------------------\nيرجى التنفيذ ✅";
+                    var selectedAgent = document.getElementById("agentSelect").value;
+                    var url = "https://wa.me/" + selectedAgent + "?text=" + encodeURIComponent(message);
+                    
+                    setTimeout(function() { window.location.href = url; }, 2000);
+                });
             }
         });
     </script>
-
+    <script type="text/javascript">var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();(function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];s1.async=true;s1.src='https://embed.tawk.to/694811440b00e71980bdd281/1jd0o6tfe';s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();</script>
 </body>
 </html>
